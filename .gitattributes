@@ -1,0 +1,2 @@
+*.pth filter=lfs diff=lfs merge=lfs -text
+image_quality_assessment_model.pth filter=lfs diff=lfs merge=lfs -text

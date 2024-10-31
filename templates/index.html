@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Quality Assessment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        input[type="number"] {
+            margin: 10px 0;
+            padding: 5px;
+            width: 50px;
+        }
+        input[type="submit"] {
+            margin: 10px 0;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        input[type="submit"]:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+    <script>
+        function disableButton() {
+            var button = document.getElementById("uploadButton");
+            button.disabled = true;
+            setTimeout(function() {
+                button.disabled = false;
+            }, 20000); // 20 seconds
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Entity Dataset Quality Assessment</h1>
+        <form action="/predict" method="post" enctype="multipart/form-data" onsubmit="disableButton()">
+            <label for="folder">Upload Folder of Images:</label>
+            <input type="file" name="folder" webkitdirectory directory multiple required>
+            <br>
+            <label for="n">Enter n:</label>
+            <input type="number" name="n" min="1" required>
+            <br>
+            <input type="submit" id="uploadButton" value="Upload">
+        </form>
+        {% if prediction_text %}
+        <div class="result">
+            <p>{{ prediction_text }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
